@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { IntlProvider, FormattedMessage, FormattedNumber } from "react-intl";
+import { IntlProvider, FormattedMessage } from "react-intl";
 import "./header.scss";
+import { useBasket } from "../../contexts/BasketContext";
 const Header = ({num}) => {
+
+  const basket=useBasket()
+  console.log(basket)
   const localeLang = localStorage.getItem("myLang");
   const [bgColor, setBgColor] = useState("");
   const [lang, setLang] = useState(localeLang ? localeLang : "az-AZ");
-  console.log("Header re-render")
   const myMessage = {
     "az-AZ": {
       title: "Salam Gözəl",

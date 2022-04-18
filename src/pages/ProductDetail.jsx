@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useBasket } from "../contexts/BasketContext";
 const ProductDetail = () => {
   const { id, lang } = useParams();
   const [singlePro, setSinglePro] = useState();
   const [loading, setLoading] = useState(true);
-
+  const {items,addToCart}=useBasket()
   useEffect(() => {
     fetch(`/api/products/${id}/${lang}`)
       .then((c) => c.json())
       .then((c) => setSinglePro(c));
     setLoading(false);
   }, [id, lang]);
+
+  const findBasketItem=items.find(item=>item.id===Number(id));
   return (
     <section className="product-detail py-5">
       <div className="container">
@@ -34,7 +37,11 @@ const ProductDetail = () => {
                   </>
                 ))}
                 <p>Price:{singlePro.price} AZN</p>
-                <button className="btn btn-outline-success">Add To Cart</button>
+                <button className={`btn ${findBasketItem?"btn-danger":"btn-outline-success"}`}
+                  onClick={()=>addToCart(singlePro,findBasketItem)}
+                >
+                 {findBasketItem?"Remove From Cart":"Add To Cart"} 
+                </button>
               </div>
             </div>
           </div>
