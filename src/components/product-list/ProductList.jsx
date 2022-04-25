@@ -4,7 +4,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 import "./productList.scss";
 const ProductList = ({ loading, data }) => {
-  console.log(data)
+  // console.log(data)
   return (
     <section className="product-list">
       {/* {data.length===0 && <p className="alert alert-warning">Mehsul tapilmadı</p>} */}

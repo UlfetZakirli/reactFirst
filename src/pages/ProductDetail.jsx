@@ -4,12 +4,33 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { BASE_URL } from "../api/ApiConfig";
 import { useLanguage } from "../contexts/LanguageContext";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AddToCart } from "../Redux/Actions/CartActions";
+import { cartReducers } from "../Redux/Reducers/CartReducers";
 const ProductDetail = () => {
   const { id } = useParams();
   const [singlePro, setSinglePro] = useState();
   const [loading, setLoading] = useState(true);
+  const cartItems=useSelector(state=>state.cart.cartItems);
+  // console.log(cartItems)
+  
+  // let qty=1;
+  // if(cartItems.length>0){
+  //   qty=cartItems.find(c=>c.id===id)
+  // }
+  // console.log(qty)
+  const addToCartHandle=(id)=>{
+    let qty=1;
+    let item=cartItems.find(c=>c.id===id);
+    // console.log(item)
+    if(item){
+      qty+=item.qty;
+    }
+    console.log(qty)
+
+    dispatch(AddToCart(id,qty,language))
+
+  }
   const {language}=useLanguage()
   // const productId=Number(id);
 const dispatch=useDispatch()
@@ -42,10 +63,13 @@ const dispatch=useDispatch()
                 ))}
                 <p>Price:{singlePro.price} AZN</p>
                 <button className={`btn btn-outline-success`}
-                  onClick={()=>dispatch(AddToCart(id,1,language))}
+                  onClick={()=>{
+                    // setQuantity(c=>++c)
+                    addToCartHandle(Number(id))
+                  }}
                 >
                  {/* {findBasketItem?"Remove From Cart":"Add To Cart"}  */}
-                 Add TO Cart
+                 Add To Cart
                 </button>
               </div>
             </div>
