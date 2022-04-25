@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useBasket } from "../contexts/BasketContext";
 import { BASE_URL } from "../api/ApiConfig";
 import { useLanguage } from "../contexts/LanguageContext";
+import { useDispatch } from "react-redux";
+import { AddToCart } from "../Redux/Actions/CartActions";
 const ProductDetail = () => {
   const { id } = useParams();
   const [singlePro, setSinglePro] = useState();
   const [loading, setLoading] = useState(true);
-  const {items,addToCart}=useBasket()
   const {language}=useLanguage()
+  // const productId=Number(id);
+const dispatch=useDispatch()
 
   useEffect(() => {
     fetch(`${BASE_URL}/api/products/${id}/${language}`)
@@ -18,7 +20,6 @@ const ProductDetail = () => {
       .then((c) => setSinglePro(c));
     setLoading(false);
   }, [id, language]);
-  const findBasketItem=items.find(item=>item.id===Number(id));
   return (
     <section className="product-detail py-5">
       <div className="container">
@@ -40,10 +41,11 @@ const ProductDetail = () => {
                   </div>
                 ))}
                 <p>Price:{singlePro.price} AZN</p>
-                <button className={`btn ${findBasketItem?"btn-danger":"btn-outline-success"}`}
-                  onClick={()=>addToCart(singlePro,findBasketItem)}
+                <button className={`btn btn-outline-success`}
+                  onClick={()=>dispatch(AddToCart(id,1,language))}
                 >
-                 {findBasketItem?"Remove From Cart":"Add To Cart"} 
+                 {/* {findBasketItem?"Remove From Cart":"Add To Cart"}  */}
+                 Add TO Cart
                 </button>
               </div>
             </div>

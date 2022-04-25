@@ -7,15 +7,17 @@ import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {BasketProvider} from "./contexts/BasketContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
+import { Provider } from "react-redux";
+import store from "./Redux/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <BasketProvider>
         <LanguageProvider>
-        <App />
+          <Provider store={store}>
+              <App />
+          </Provider>
         </LanguageProvider>
-      </BasketProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
