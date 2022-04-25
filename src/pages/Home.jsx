@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import HeroSlide from "../components/hero-slider/HeroSlide";
+import { BASE_URL } from "../api/ApiConfig";
 import ProductList from "../components/product-list/ProductList";
-import { useBasket } from "../contexts/BasketContext";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const Home = () => {
   const [products,setProducts]=useState([]);
   const [loading, setLoading] = useState(false);
+  const {language}=useLanguage()
   useEffect(() => {
     const getProductList = () => {
-      fetch("/Home/HomeScroll?page=1&lang=az")
+      fetch(`${BASE_URL}/api/products/${language}`)
         .then((c) => c.json())
         .then((c) => {
           setProducts(c);
@@ -16,7 +17,7 @@ const Home = () => {
         });
     };
     getProductList();
-  }, []);
+  }, [language]);
   return (
     <ProductList loading={loading} data={products}/>
     );

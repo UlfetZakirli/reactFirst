@@ -3,18 +3,21 @@ import { useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useBasket } from "../contexts/BasketContext";
+import { BASE_URL } from "../api/ApiConfig";
+import { useLanguage } from "../contexts/LanguageContext";
 const ProductDetail = () => {
-  const { id, lang } = useParams();
+  const { id } = useParams();
   const [singlePro, setSinglePro] = useState();
   const [loading, setLoading] = useState(true);
   const {items,addToCart}=useBasket()
+  const {language}=useLanguage()
+
   useEffect(() => {
-    fetch(`/api/products/${id}/${lang}`)
+    fetch(`${BASE_URL}/api/products/${id}/${language}`)
       .then((c) => c.json())
       .then((c) => setSinglePro(c));
     setLoading(false);
-  }, [id, lang]);
-
+  }, [id, language]);
   const findBasketItem=items.find(item=>item.id===Number(id));
   return (
     <section className="product-detail py-5">
@@ -31,10 +34,10 @@ const ProductDetail = () => {
               <div className="pro-info">
                 {/* <span>{singlePro.category}</span> */}
                 {singlePro.productRecords.map((rec) => (
-                  <>
+                  <div key={rec.id}>
                     <h2>{rec.name}</h2>
                     <p>{rec.description}</p>
-                  </>
+                  </div>
                 ))}
                 <p>Price:{singlePro.price} AZN</p>
                 <button className={`btn ${findBasketItem?"btn-danger":"btn-outline-success"}`}

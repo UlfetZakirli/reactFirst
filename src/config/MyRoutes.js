@@ -10,7 +10,7 @@ const MyRoutes = () => {
     <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/haqqimizda" element={<About/>}/>
-        <Route path="/products/:lang/:id" element={<ProductDetail/>}/>
+        <Route path="/products/:id" element={<ProductDetail/>}/>
         <Route path="/products" element={<Products/>}/>
         <Route path="*" element={<NotFound/>}/>
     </Routes>

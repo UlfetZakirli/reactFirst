@@ -5,14 +5,13 @@ import { Link } from "react-router-dom";
 import "./productList.scss";
 const ProductList = ({ loading, data }) => {
   console.log(data)
-  const arr=[{}]
   return (
     <section className="product-list">
       {/* {data.length===0 && <p className="alert alert-warning">Mehsul tapilmadı</p>} */}
       {loading ? (
         <div className="container">
           <div className="row">
-            {data.seller && data.seller.products.map((pro) => (
+            {data && data.map((pro) => (
               <div className="col-lg-3" key={pro.id}>
                 <div className="product-item">
                   <img
@@ -21,15 +20,15 @@ const ProductList = ({ loading, data }) => {
                     alt=""
                     src={pro.photo}
                   />
-                  {/* {pro.productRecords
+                  {pro.productRecords
                     .map((rec) => (
-                      <Link to={`/products/${rec.languageKey}/${pro.id}`}>
-                        <h6 key={rec.id} className="my-3">
+                      <Link key={rec.id} to={`/products/${pro.id}`}>
+                        <h6  className="my-3">
                           {rec.name}
                         </h6>
                       </Link>
-                    ))} */}
-                  <p className="price">{pro.currentPrice} Azn</p>
+                    ))}
+                  <p className="price">{pro.price} Azn</p>
                 </div>
               </div>
             ))}
