@@ -3,6 +3,9 @@
     color:#fff;
     padding: 15px 0;
     &.active-header{
+        background-color: yellow
+    }
+    &.active-header{
         background-color: black;
         position: fixed;
         width: 100%;

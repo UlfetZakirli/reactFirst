@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
+import Header from "../header/Header";
 import "./productList.scss";
 const ProductList = ({ loading, data }) => {
   // console.log(data)
   return (
+    <>
+    <Header defaultClass="active-header"/>
     <section className="product-list">
       {/* {data.length===0 && <p className="alert alert-warning">Mehsul tapilmadı</p>} */}
       {loading ? (
@@ -59,6 +62,7 @@ const ProductList = ({ loading, data }) => {
         </div>
       )}
     </section>
+    </>
   );
 };
 
