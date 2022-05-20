@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Header from "../header/Header";
 import "./productList.scss";
 const ProductList = ({ loading, data }) => {
-  // console.log(data)
+  console.log(data)
   return (
     <>
     <section className="product-list">
@@ -22,14 +22,11 @@ const ProductList = ({ loading, data }) => {
                     alt=""
                     src={pro.photo}
                   />
-                  {pro.productRecords
-                    .map((rec) => (
-                      <Link key={rec.id} to={`/products/${pro.id}`}>
+                      <Link key={pro.id} to={`/products/${pro.id}`}>
                         <h6  className="my-3">
-                          {rec.name}
+                          {pro.name}
                         </h6>
                       </Link>
-                    ))}
                   <p className="price">{pro.price} Azn</p>
                 </div>
               </div>
