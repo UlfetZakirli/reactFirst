@@ -12,27 +12,15 @@ const ProductDetail = () => {
   const [singlePro, setSinglePro] = useState();
   const [loading, setLoading] = useState(true);
   const cartItems=useSelector(state=>state.cart.cartItems);
-  // console.log(cartItems)
-  
-  // let qty=1;
-  // if(cartItems.length>0){
-  //   qty=cartItems.find(c=>c.id===id)
-  // }
-  // console.log(qty)
   const addToCartHandle=(id)=>{
     let qty=1;
     let item=cartItems.find(c=>c.id===id);
-    // console.log(item)
     if(item){
       qty+=item.qty;
     }
-    console.log(qty)
-
     dispatch(AddToCart(id,qty,language))
-
   }
   const {language}=useLanguage()
-  // const productId=Number(id);
 const dispatch=useDispatch()
 
   useEffect(() => {

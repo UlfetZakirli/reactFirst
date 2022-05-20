@@ -3,6 +3,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { cartReducers } from "./Reducers/CartReducers";
 
+//middleware (redux-thunk)
 
 const reducer=combineReducers({
     cart:cartReducers,

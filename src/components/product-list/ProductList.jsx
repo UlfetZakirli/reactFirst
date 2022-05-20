@@ -8,7 +8,6 @@ const ProductList = ({ loading, data }) => {
   // console.log(data)
   return (
     <>
-    <Header defaultClass="active-header"/>
     <section className="product-list">
       {/* {data.length===0 && <p className="alert alert-warning">Mehsul tapilmadı</p>} */}
       {loading ? (
