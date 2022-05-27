@@ -14,9 +14,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import { BASE_URL } from "../../api/ApiConfig";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { loginAction } from './../../Redux/Actions/UserAction';
+import { useDispatch } from 'react-redux';
 const theme = createTheme();
 
 const Login = () => {
+  const dispatch=useDispatch()
   const {
     register,
     handleSubmit,
@@ -25,22 +28,8 @@ const Login = () => {
   } = useForm({mode:"all"});
 
   const handleFormSubmit = (data) => {
-    try {
-      (async () => {
-        const rawResponse = await fetch(`${BASE_URL}/api/account/login`, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-        const content = await rawResponse.json();
-        console.log(content);
-      })();
-    } catch (error) {
-      console.log(error);
-    }
+
+  dispatch(loginAction(data.email,data.password))
   };
 
   return (
